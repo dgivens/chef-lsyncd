@@ -1,0 +1,17 @@
+sync {
+    default.<%= @mode %>,
+    source      = "<%= @source %>",
+<% if @mode == 'rsync' -%>
+    <% if @host -%>
+    target      = "<%= @host %>:<%= @target %>",
+    <% else -%>
+    target      = "<%= @target %>",
+    <% end -%>
+<% elsif @mode == 'rsyncssh' -%>
+    targetdir   = "<%= @target %>",
+    host        = "<%= @host %>",
+<% end -%>
+<%= "    rsyncOpts   = #{@rsync_opts},\n" if @rsync_opts -%>
+<%= "    exclude     = #{@exclude},\n" if @exclude -%>
+<%= "    excludeFrom = \"#{@exclude_from}\",\n" if @exclude_from -%>
+}
