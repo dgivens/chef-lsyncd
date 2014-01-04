@@ -1,7 +1,7 @@
 # lsyncd Cookbook
 
-The lsyncd cookbook installs lsyncd, creates and basic config, and starts the
-service. Additionally, it exposes the lsyncd_target resource easily add sync
+The lsyncd cookbook installs lsyncd, creates a basic config, and starts the
+service. Additionally, it exposes the lsyncd_target resource to easily add sync
 configs.
 
 Through some ugly Lua hackery, the main config, `/etc/lsyncd/lsyncd.conf.lua`,
@@ -9,18 +9,31 @@ is setup such that it will include all sync configs in `/etc/lsyncd/conf.d/`.
 The lsyncd_target resource pretty much just creates the configs in 
 `/etc/lsyncd/conf.d/`.
 
-# Requirements
+## Requirements
 
-Tested on Debian Wheezy
-Chef 11 or greater
+- Chef 11 or greater
+- Tested on Debian Wheezy
 
-# Usage
+## Resources/Providers
 
-After loading the lsyncd cookbook you have access to the `lsyncd_target` resource for setting up simple lsyncd layer 4 sync configs. 
+### lsyncd_target
 
-__You must include `lsyncd::default` to use the `lsyncd_target` resource.__
+#### Actions
 
-### Examples
+- `:create` - creates a sync config
+- `:delete` - deletes the sync config
+
+#### Parameters
+
+- `mode` - lsyncd sync mode. Defaults to `rsync`
+- `source` - source directory. Required
+- `target` - target directory to sync files to. Required
+- `host` - IP or hostname of remote host. Required for remote syncing with the `rsync` or `rsyncssh` modes.
+- `rsync_opts` - list of rsync options
+- `exclude` - list of [exclusions](https://github.com/axkibe/lsyncd/wiki/Lsyncd%202.1.x%20%E2%80%96%20Layer%204%20Config%20%E2%80%96%20Default%20Behavior#exclusions)
+- `exclude_from` - path to file containing exclusions
+
+#### Example
 
 Sync a directory to another local directory:
 
@@ -34,10 +47,51 @@ lsyncd_target 'foo' do
 end
 ```
 
-# Attributes
+You can also do remote rsync by specifying `rsync` or `rsyncssh` for the mode:
 
-# Recipes
+```ruby
+include_recipe 'lsyncd'
 
-# Author
+lsyncd_target 'foo' do
+  host 'test'
+  source '/tmp/foo'
+  target '/tmp/bar'
+  notifies :restart, 'service[lsyncd]', :delayed
+end
+```
 
-Author:: Rackspace, Inc. (<daniel.givens@rackspace.com>)
+## Recipes
+
+### default.rb
+
+Installs lsyncd, creates `/etc/lsyncd/conf.d`, sets up base config, and starts
+lsyncd service. Note that the service will not actually start until you have a sync config in place.
+
+## Attributes
+
+```ruby
+default[:lsyncd][:conf_d] = '/etc/lsyncd/conf.d'
+default[:lsyncd][:log_file] = '/var/log/lsyncd.log'
+default[:lsyncd][:status_file] = '/var/log/lsyncd-status.log'
+default[:lsyncd][:interval] = 20
+```
+
+## License & Authors
+
+Author:: Daniel Givens (<daniel.givens@rackspace.com>)
+
+```text
+Copyright 2014, Rackspace, Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
