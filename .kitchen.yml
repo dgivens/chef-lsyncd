@@ -1,16 +1,22 @@
 ---
-driver:
-  name: vagrant
-
 provisioner:
   name: chef_solo
+driver_plugin: vagrant
+driver_config:
+  require_chef_omnibus: true
 
 platforms:
-  - name: ubuntu-12.04
-  - name: centos-6.4
+- name: debian-7.2
+  driver_config:
+    box: debian-7.2
+    box_url: https://dl.dropboxusercontent.com/u/197673519/debian-7.2.0.box
 
 suites:
   - name: default
     run_list:
-      - recipe[lsyncd::default]
-    attributes:
+      - recipe[lsyncd_test::integration]
+    attributes: {
+      "lsyncd": {
+        "interval": 1
+      }
+    }
