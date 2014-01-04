@@ -8,4 +8,4 @@ settings = {
 
 -- Hacky way of doing conf.d style configs
 package.path = "/etc/lsyncd/conf.d/?.lua;" .. package.path
-local f = io.popen("ls /etc/lsyncd/conf.d/*.lua|sed 's/.lua//'") for mod in f:lines() do require(mod) end
+local f = io.popen("ls /etc/lsyncd/conf.d/*.lua|xargs -n1 basename|sed 's/.lua//'") for mod in f:lines() do require(mod) end
