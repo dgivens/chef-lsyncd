@@ -10,12 +10,13 @@ describe 'lsyncd_test::integration' do
     target      = "/tmp/test1_target",
 }
 '
+  end
 
   it 'includes recipe lsyncd::default' do
     expect(chef_run).to include_recipe('lsyncd::default')
   end
 
-  context "setting up test resources"
+  context "setting up test resources" do
     it 'creates directory[/tmp/test1_source]' do
       expect(chef_run).to create_directory('/tmp/test1_source')
     end
@@ -25,7 +26,7 @@ describe 'lsyncd_test::integration' do
     end
 
     it 'creates file[/tmp/test1_source/empty_file]' do
-      expect(chef_run).to render_file('/tmp/test1_target')
+      expect(chef_run).to create_file('/tmp/test1_source/empty_file')
     end
   end
 
@@ -34,7 +35,7 @@ describe 'lsyncd_test::integration' do
       expect(chef_run).to create_lsyncd_target('test1')      
     end
 
-    it 'steps into lsyncd_target and creates template[/etc/lsyncd/conf.d/test1.lua'
+    it 'steps into lsyncd_target and creates template[/etc/lsyncd/conf.d/test1.lua' do
       expect(chef_run).to render_file('/etc/lsyncd/conf.d/test1.lua').with_content(test1_content)
     end
 

@@ -16,7 +16,7 @@ describe 'lsyncd_test::unit' do
     'sync {
     default.rsync,
     source      = "/tmp/test2_source",
-    target      = "test:/tmp/test2_target",
+    target      = "rsync://test/test2_target",
 }
 '
   end

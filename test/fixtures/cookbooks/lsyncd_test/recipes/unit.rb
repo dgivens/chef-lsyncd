@@ -9,7 +9,7 @@ end
 lsyncd_target 'test2' do
   mode 'rsync'
   source '/tmp/test2_source'
-  target '/tmp/test2_target'
+  target 'test2_target'
   host 'test'
   notifies :restart, 'service[lsyncd]', :delayed
 end
