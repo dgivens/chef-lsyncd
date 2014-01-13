@@ -12,7 +12,12 @@ The lsyncd_target resource pretty much just creates the configs in
 ## Requirements
 
 - Chef 11 or greater
-- Tested on Debian Wheezy
+
+Tested on:
+
+- Debian 7.2 (Wheezy)
+- Ubuntu 12.04
+- CentOS 6.5
 
 ## Resources/Providers
 
