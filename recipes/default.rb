@@ -17,6 +17,15 @@
 # limitations under the License.
 #
 
+if platform_family?('rhel')
+  yum_repository 'epel' do
+    description 'Extra Packages for Enterprise Linux'
+    mirrorlist 'http://mirrors.fedoraproject.org/mirrorlist?repo=epel-6&arch=$basearch'
+    gpgkey 'http://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-6'
+    action :create
+  end
+end
+
 package 'lsyncd'
 
 directory '/etc/lsyncd/conf.d' do
@@ -24,11 +33,19 @@ directory '/etc/lsyncd/conf.d' do
   mode 0755
 end
 
-template '/etc/lsyncd/lsyncd.conf.lua' do
-  source 'lsyncd.conf.lua.erb'
-  mode 0644
+if platform_family?('fedora', 'rhel')
+  template '/etc/lsyncd.conf' do
+    source 'lsyncd.conf.lua.erb'
+    mode 0644
+  end
+else
+  template '/etc/lsyncd/lsyncd.conf.lua' do
+    source 'lsyncd.conf.lua.erb'
+    mode 0644
+  end
 end
 
 service 'lsyncd' do
   action [:enable, :start]
+  ignore_failure true
 end
