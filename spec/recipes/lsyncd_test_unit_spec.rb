@@ -97,5 +97,4 @@ describe 'lsyncd_test::unit' do
       expect(resource).to notify('service[lsyncd]').to(:restart).delayed
     end
   end
-
 end
