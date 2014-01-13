@@ -30,12 +30,15 @@ describe "lsyncd" do
     expect(file('/tmp/test1_source/empty_file')).to be_mode 644
   end
   
-  it "ensures lsyncd is running" do
+  it "enables service[lsyncd]" do
     expect(service('lsyncd')).to be_enabled
-    expect(service('lsyncd')).to be_running
+  end
+
+  it "starts lsyncd" do
+    expect(process('lsyncd')).to be_running
   end
   
-  it "has replicated the test file" do
+  it "lsyncd replicates the test file" do
     expect(file('/tmp/test1_target/empty_file')).to be_file
     expect(file('/tmp/test1_target/empty_file')).to be_mode 644
   end
