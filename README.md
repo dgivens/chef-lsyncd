@@ -9,6 +9,9 @@ is setup such that it will include all sync configs in `/etc/lsyncd/conf.d/`.
 The lsyncd_target resource pretty much just creates the configs in 
 `/etc/lsyncd/conf.d/`.
 
+The basis for this cookbook came from 
+[blad's lsyncd cookbook](https://github.com/bflad/chef-lsyncd).
+
 ## Requirements
 
 - Chef 11 or greater
@@ -79,6 +82,23 @@ default[:lsyncd][:conf_d] = '/etc/lsyncd/conf.d'
 default[:lsyncd][:log_file] = '/var/log/lsyncd.log'
 default[:lsyncd][:status_file] = '/var/log/lsyncd-status.log'
 default[:lsyncd][:interval] = 20
+```
+
+## Testing
+
+This cookbook includes chefspec unit tests and integration tests via test-kitchen and serverspec.
+There is a test cookbook to exercise the lsync_target LWRP included. 
+
+I've included a custom matcher for chefspec. The methods available are:
+
+- `create_lsyncd_target`
+- `delete_lsyncd_target`
+
+There is also an `lsyncd_target` chef_runner method, so you can do things like:
+
+```ruby
+resource = chef_run.lsyncd_target('test1')
+expect(resource).to notify('service[lsyncd]').to(:restart).delayed
 ```
 
 ## License & Authors
