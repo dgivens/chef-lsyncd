@@ -10,7 +10,7 @@ The lsyncd_target resource pretty much just creates the configs in
 `/etc/lsyncd/conf.d/`.
 
 The basis for this cookbook came from 
-[blad's lsyncd cookbook](https://github.com/bflad/chef-lsyncd).
+[bflad's lsyncd cookbook](https://github.com/bflad/chef-lsyncd).
 
 ## Requirements
 
