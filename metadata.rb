@@ -4,5 +4,8 @@ maintainer_email 'daniel.givens@rackspace.com'
 license          'Apache 2.0'
 description      'Installs/Configures lsyncd'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
+supports         'ubuntu', '>= 12.04'
+supports         'debian', '>= 7.0'
+supports         'centos', '>= 6.5'
 version          '0.1.1'
 depends          'yum', "~> 3.0.0"
