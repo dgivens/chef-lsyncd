@@ -104,6 +104,7 @@ expect(resource).to notify('service[lsyncd]').to(:restart).delayed
 ## License & Authors
 
 Author:: Daniel Givens (<daniel.givens@rackspace.com>)
+Author:: Brian Flad (<bflad417@gmail.com>)
 
 ```text
 Copyright 2014, Rackspace, Inc.
