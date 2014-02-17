@@ -36,6 +36,7 @@ Tested on:
 - `mode` - lsyncd sync mode. Defaults to `rsync`
 - `source` - source directory. Required
 - `target` - target directory to sync files to. Required
+- `user` - User name to use when syncing content. Optional, will assume root if a user name is not provided.
 - `host` - IP or hostname of remote host. Required for remote syncing with the `rsync` or `rsyncssh` modes.
 - `rsync_opts` - list of rsync options
 - `exclude` - list of [exclusions](https://github.com/axkibe/lsyncd/wiki/Lsyncd%202.1.x%20%E2%80%96%20Layer%204%20Config%20%E2%80%96%20Default%20Behavior#exclusions)

@@ -3,7 +3,7 @@ sync {
     source      = "<%= @source %>",
 <% if @mode == 'rsync' -%>
     <% if @host -%>
-    target      = "rsync://<%= @host %>/<%= @target %>",
+    target      = "rsync://<% if @user %><%= @user %>@<% end %><%= @host %>/<%= @target %>",
     <% else -%>
     target      = "<%= @target %>",
     <% end -%>
