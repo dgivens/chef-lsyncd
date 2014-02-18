@@ -18,7 +18,7 @@ The basis for this cookbook came from
 
 Tested on:
 
-- Debian 7.2 (Wheezy)
+- Debian 7.4 (Wheezy)
 - Ubuntu 12.04
 - CentOS 6.5
 

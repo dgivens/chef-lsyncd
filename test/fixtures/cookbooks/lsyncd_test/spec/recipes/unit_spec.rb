@@ -3,7 +3,7 @@ require_relative '../spec_helper'
 describe 'lsyncd_test::unit' do
   let(:chef_run) { ChefSpec::Runner.new(step_into: ['lsyncd_target']).converge(described_recipe) }
 
-  let(:test1_content) do
+    let(:test1_content) do
     'sync {
     default.rsync,
     source      = "/tmp/test1_source",
@@ -16,13 +16,30 @@ describe 'lsyncd_test::unit' do
     'sync {
     default.rsync,
     source      = "/tmp/test2_source",
-    target      = "rsync://test/test2_target",
+    target      = "/test/test2_target",
 }
 '
   end
 
-  let(:test3_content) do
-    'sync {
+  case node[:platform]
+  when "centos"
+    let(:test3_content) do
+      'sync {
+    default.rsyncssh,
+    source      = "/tmp/test3_source",
+    targetdir   = "/tmp/test3_target",
+    host        = "test",
+    rsync = {
+      extra = {"-ltus", "--numeric-ids", "--bwlimit=10000"},
+    },
+    exclude     = {"foo", "bar"},
+    excludeFrom = "/tmp/test_exclude",
+}
+'
+    end
+  when "debian"
+    let(:test3_content) do
+      'sync {
     default.rsyncssh,
     source      = "/tmp/test3_source",
     targetdir   = "/tmp/test3_target",
@@ -32,11 +49,27 @@ describe 'lsyncd_test::unit' do
     excludeFrom = "/tmp/test_exclude",
 }
 '
+    end
+  else
+    let(:test3_content) do
+      'sync {
+    default.rsyncssh,
+    source      = "/tmp/test3_source",
+    targetdir   = "/tmp/test3_target",
+    host        = "test",
+    rsyncOps   = {"-ltus", "--numeric-ids", "--bwlimit=10000"},
+    exclude     = {"foo", "bar"},
+    excludeFrom = "/tmp/test_exclude",
+}
+'
+    end
+  end
+
   let(:test5_content) do
     'sync {
     default.rsync,
     source      = "/tmp/test5_source",
-    target      = "rsync://lnxuser@test/test5_target",
+    target      = "lnxuser@test:/tmp/test5_target",
 }
 '
   end

@@ -1,4 +1,4 @@
--- Created by Chef; Using lsync 2.0 config sytax
+-- Created by Chef; Using lsync 2.1 config sytax
 sync {
     default.<%= @mode %>,
     source      = "<%= @source %>",
@@ -12,7 +12,7 @@ sync {
     targetdir   = "<%= @target %>",
     host        = "<%= @host %>",
 <% end -%>
-<%= "    rsyncOps    = #{@rsync_opts},\n" if @rsync_opts -%>
+<%= "    rsync = {\n      _extra = #{@rsync_opts},\n    }," if @rsync_opts -%>
 <%= "    exclude     = #{@exclude},\n" if @exclude -%>
 <%= "    excludeFrom = \"#{@exclude_from}\",\n" if @exclude_from -%>
 }
