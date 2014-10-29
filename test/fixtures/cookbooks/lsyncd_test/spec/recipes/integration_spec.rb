@@ -1,7 +1,7 @@
 require_relative '../spec_helper'
 
 describe 'lsyncd_test::integration' do
-  let(:chef_run) { ChefSpec::Runner.new(step_into: ['lsyncd_target']).converge(described_recipe) }
+  let(:chef_run) { ChefSpec::SoloRunner.new(step_into: ['lsyncd_target']).converge(described_recipe) }
 
   let(:test1_content) do
     'sync {
@@ -32,7 +32,7 @@ describe 'lsyncd_test::integration' do
 
   context "creating an lsync_target with minimal parameters" do
     it 'creates lsyncd_target[test1]' do
-      expect(chef_run).to create_lsyncd_target('test1')      
+      expect(chef_run).to create_lsyncd_target('test1')
     end
 
     it 'steps into lsyncd_target and creates template[/etc/lsyncd/conf.d/test1.lua' do

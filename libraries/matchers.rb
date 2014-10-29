@@ -1,7 +1,7 @@
 # lsyncd/libraries/matcher.rb
 
 if defined?(ChefSpec)
-  ChefSpec::Runner.define_runner_method(:lsyncd_target)
+  ChefSpec.define_matcher(:lsyncd_target)
 
   def create_lsyncd_target(resource)
     ChefSpec::Matchers::ResourceMatcher.new(:lsyncd_target, :create, resource)
@@ -10,5 +10,4 @@ if defined?(ChefSpec)
   def delete_lsyncd_target(resource)
     ChefSpec::Matchers::ResourceMatcher.new(:lsyncd_target, :delete, resource)
   end
-  
 end
