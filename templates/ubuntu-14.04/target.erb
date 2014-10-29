@@ -1,0 +1,18 @@
+-- Created by Chef; Using lsync 2.1 config sytax
+sync {
+    default.<%= @mode %>,
+    source      = "<%= @source %>",
+<% if @mode == 'rsync' -%>
+    <% if @host -%>
+    target      = "<% if @user %><%= @user %>@<% end %><%= @host %>:<%= @target %>",
+    <% else -%>
+    target      = "<%= @target %>",
+    <% end -%>
+<% elsif @mode == 'rsyncssh' -%>
+    targetdir   = "<%= @target %>",
+    host        = "<%= @host %>",
+<% end -%>
+<%= "    rsync = {\n      _extra = #{@rsync_opts},\n    }," if @rsync_opts -%>
+<%= "    exclude     = #{@exclude},\n" if @exclude -%>
+<%= "    excludeFrom = \"#{@exclude_from}\",\n" if @exclude_from -%>
+}
