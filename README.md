@@ -6,10 +6,10 @@ configs.
 
 Through some ugly Lua hackery, the main config, `/etc/lsyncd/lsyncd.conf.lua`,
 is setup such that it will include all sync configs in `/etc/lsyncd/conf.d/`.
-The lsyncd_target resource pretty much just creates the configs in 
+The lsyncd_target resource pretty much just creates the configs in
 `/etc/lsyncd/conf.d/`.
 
-The basis for this cookbook came from 
+The basis for this cookbook came from
 [bflad's lsyncd cookbook](https://github.com/bflad/chef-lsyncd).
 
 ## Requirements
@@ -18,9 +18,11 @@ The basis for this cookbook came from
 
 Tested on:
 
-- Debian 7.4 (Wheezy)
+- Debian 7.x (Wheezy)
 - Ubuntu 12.04
+- Ubuntu 14.04
 - CentOS 6.5
+- CentOS 7.0
 
 ## Resources/Providers
 
@@ -88,7 +90,7 @@ default[:lsyncd][:interval] = 20
 ## Testing
 
 This cookbook includes chefspec unit tests and integration tests via test-kitchen and serverspec.
-There is a test cookbook to exercise the lsync_target LWRP included. 
+There is a test cookbook to exercise the lsync_target LWRP included.
 
 I've included a custom matcher for chefspec. The methods available are:
 
