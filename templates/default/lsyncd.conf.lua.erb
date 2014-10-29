@@ -1,9 +1,9 @@
 -- Managed by Chef
 
 settings = {
-  logfile = "<%= node[:lsyncd][:log_file] %>",
-  statusFile = "<%= node[:lsyncd][:status_file] %>",
-  statusInterval = <%= node[:lsyncd][:interval] %>
+  logfile = "<%= node['lsyncd']['log_file'] %>",
+  statusFile = "<%= node['lsyncd']['status_file'] %>",
+  statusInterval = <%= node['lsyncd']['interval'] %>
 }
 
 -- Hacky way of doing conf.d style configs
