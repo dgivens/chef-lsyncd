@@ -11,4 +11,4 @@ supports         'scientific', '>= 6.0'
 supports         'redhat', '>= 6.0'
 supports         'amazon'
 version          '0.2.2'
-depends          'yum', "~> 3.0.0"
+depends          'yum', ">= 3.5.3"
